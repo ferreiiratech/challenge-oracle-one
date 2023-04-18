@@ -36,21 +36,29 @@ const replaceVowels = (event, str) => {
 // Cria um <textarea> e um botão "Copiar" para exibir o resultado
 const textareaOutput = document.createElement('textarea');
 textareaOutput.id = 'text-result';
-const btnCopy = document.createElement('button');
 
-// Exibe o resultado na página
+const btnCopy = document.createElement('button');
+btnCopy.classList.add('btn-general');
+btnCopy.id = 'btn-copy';
+btnCopy.type = 'submit';
+btnCopy.textContent = 'Copiar';
+
+// exibe o resultado na tela
 const displayResult = str => {
     if (textareaInput.value !== '') {
-        btnCopy.classList.add('btn-general');
-        btnCopy.id = 'btn-copy';
-        btnCopy.type = 'submit';
-        btnCopy.textContent = 'Copiar';
-
         sectionOutput.innerHTML = '';
+        textareaOutput.value = ''
         sectionOutput.appendChild(textareaOutput);
         sectionOutput.appendChild(btnCopy);
 
-        textareaOutput.textContent = str;
+        let i = 0;
+        const intervalId = setInterval(() => {
+            textareaOutput.value += str[i];
+            i++;
+            if (i === str.length) {
+                clearInterval(intervalId);
+            }
+        }, 15); 
     }
 };
 
