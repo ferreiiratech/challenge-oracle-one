@@ -22,12 +22,10 @@ const replaceVowels = (event, str) => {
 
     if (event.target === btnEncrypt) {
         return str.replace(vowels, match => replacements[match]);
-    }
-
-    if (event.target === btnDecrypt) {
+    } else {
         const invertedSubstitutions = {};
         for (let vowel in replacements) {
-        invertedSubstitutions[replacements[vowel]] = vowel;
+            invertedSubstitutions[replacements[vowel]] = vowel;
         }
         return str.replace(regexSubs, match => invertedSubstitutions[match]);
     }
@@ -36,6 +34,7 @@ const replaceVowels = (event, str) => {
 // Cria um <textarea> e um botão "Copiar" para exibir o resultado
 const textareaOutput = document.createElement('textarea');
 textareaOutput.id = 'text-result';
+textareaOutput.style.resize = 'none'
 
 const btnCopy = document.createElement('button');
 btnCopy.classList.add('btn-general');
@@ -62,21 +61,18 @@ const displayResult = str => {
     }
 };
 
-// Função para criptografar o texto inserido pelo usuário
-const encrypt = event => {
+// Função para Criptografar ou Descriptografar o texto inserido pelo usuário
+const encryptDecrypt = event => {
     const str = textareaInput.value.toLowerCase();
     const newStr = replaceVowels(event, str);
     displayResult(newStr);
-    setTimeout(() => changeText('Criptografado', 'Criptografar', btnEncrypt), 10);
-};
 
-// Função para descriptografar o texto inserido pelo usuário
-const decrypt = event => {
-    const str = textareaInput.value;
-    const newStr = replaceVowels(event, str);
-    displayResult(newStr);
-    setTimeout(() => changeText('Descriptografado', 'Descriptografar', btnDecrypt), 10);
-};
+    if (event.target === btnEncrypt){
+        setTimeout(() => changeText('Criptografado', 'Criptografar', btnEncrypt), 10);
+    } else{
+        setTimeout(() => changeText('Descriptografado', 'Descriptografar', btnDecrypt), 10);
+    }    
+}
 
 // Função para alterar o texto do botão após o clique
 const changeText = (strtemporary, strOriginal, btn) => {
@@ -104,6 +100,15 @@ const copyContent = () => {
     setTimeout(() => changeText('Copiado', 'Copiar', btnCopy), 10);
 };
 
-btnEncrypt.addEventListener('click', encrypt);
-btnDecrypt.addEventListener('click', decrypt);
+const changeTextareaBackgroundcolor = () => {
+    if (textareaInput.value === '') {
+        textareaInput.style.background = 'transparent';
+    } else {
+        textareaInput.style.background = '#d8dfe86c';
+    }
+}
+
+btnEncrypt.addEventListener('click', encryptDecrypt);
+btnDecrypt.addEventListener('click', encryptDecrypt);
 btnCopy.addEventListener('click', copyContent);
+textareaInput.addEventListener('input', changeTextareaBackgroundcolor);

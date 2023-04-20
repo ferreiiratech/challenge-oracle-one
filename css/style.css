@@ -5,32 +5,44 @@
     box-sizing: border-box;
     font-family: 'Special Elite', cursive;
 }
+*::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+*::-webkit-scrollbar-button {
+    display: none;
+}
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.563);
+}
 body{
     background: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(24, 90, 37, 0.3)), url("../img/matrix.gif");
     background-size: cover;
 }
 #main-content{
-    position: relative;
-    z-index: 1;
     display: grid;
     grid-template-columns: 70% 30%;
-    height: 100vh;
+    height: 94vh;
 }
 #data-input{
     display: flex;
     flex-direction: column;
-    gap: 80px;
+    gap: 40px;
 }
 #logo{
     display: flex;
     flex-direction: row;
-    margin-top: 30px;
+    margin: 1.5rem 0 0 1rem;
+}
+#logo img{
+    width: 70%;
 }
 #input-textarea{
     margin-left: 2.5rem;
 }
 #input-textarea textarea{
-    border: none;
+    border: 1px solid transparent;
     outline: none;
     width: 80%;
     height: 60vh;
@@ -39,6 +51,11 @@ body{
     background-color: transparent;
     resize: none;
     caret-color: #fff;
+    border-radius: 14px;
+    padding: 5px;
+}
+#input-textarea textarea:focus{
+    border-color: #d8dfe86c;
 }
 #input-textarea textarea::placeholder{
     font-size: 2rem;
@@ -107,6 +124,17 @@ body{
     margin-top: 1rem;
     align-self: center;
 }
+footer{
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    font-size: 1.3rem;
+    color: white;
+    margin: 2rem 3.3rem 0 0;
+}
+footer a{
+    color: white;
+}
 @media screen and (max-width: 1250px){
     #main-content{
         grid-template-columns: 60% 40%;
@@ -143,6 +171,11 @@ body{
     }
     #btn-copy{
         margin: 2.5rem 0 1rem;
+    }
+    footer{
+        font-size: 1.2rem;
+        margin: 2.5rem 0 0 0;
+        justify-content: center;
     }
 }
 @media screen and (max-width: 650px){
